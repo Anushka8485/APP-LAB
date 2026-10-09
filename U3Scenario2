@@ -1,0 +1,20 @@
+import re
+
+text = """
+Invoice Amounts:
+Product A - Rs. 5000
+Product B - Rs 12,500
+Product C - 500
+Product D - 1,250
+"""
+
+# Regular expression to find monetary values
+pattern = r'(?:Rs\.?\s*)?\d{1,3}(?:,\d{3})+|(?:Rs\.?\s*)?\d+'
+
+# Find all monetary values
+values = re.findall(pattern, text)
+
+print("Monetary values found:")
+
+for value in values:
+    print(value.strip())
