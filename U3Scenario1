@@ -1,0 +1,52 @@
+import csv
+import sys
+
+# Check whether filename is provided
+if len(sys.argv) != 2:
+    print("Usage: python sports.py <filename>")
+    sys.exit()
+
+filename = sys.argv[1]
+
+try:
+    # Read the CSV file
+    with open(filename, "r", newline="") as file:
+        reader = csv.DictReader(file)
+
+        # Store all equipment records
+        equipment = list(reader)
+
+    # Display all equipment information
+    print("\n--- Sports Equipment Information ---")
+
+    for item in equipment:
+        print("Equipment ID :", item["Equipment ID"])
+        print("Name         :", item["Name"])
+        print("Sport        :", item["Sport"])
+        print("Quantity     :", item["Quantity"])
+        print("Condition    :", item["Condition"])
+        print("------------------------------------")
+
+    # Search equipment using Equipment ID
+    search_id = input("\nEnter Equipment ID to search: ")
+
+    found = False
+
+    for item in equipment:
+        if item["Equipment ID"] == search_id:
+            print("\n--- Equipment Found ---")
+            print("Equipment ID :", item["Equipment ID"])
+            print("Name         :", item["Name"])
+            print("Sport        :", item["Sport"])
+            print("Quantity     :", item["Quantity"])
+            print("Condition    :", item["Condition"])
+            found = True
+            break
+
+    if not found:
+        print("Equipment with ID", search_id, "not found.")
+
+except FileNotFoundError:
+    print("Error: File not found.")
+except KeyError:
+    print("Error: CSV file does not have the required columns.")
